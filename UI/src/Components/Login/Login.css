@@ -1119,6 +1119,9 @@ margin-left: 15%;
   background-repeat: no-repeat;
   background-size: cover;
 }
+.css-b62m3t-container{
+  width: 94%;
+}
 
 .resetpwd .modal-header{
   /* background: #005999 !important;; */
@@ -1143,6 +1146,8 @@ float: right;
   border: 1px solid antiquewhite;
   border-radius: 30px;
   --mdb-card-bg:transparent;
+  box-shadow: 2px 2px 20px antiquewhite;
+
 }
 
 .loginDiv .card:hover{

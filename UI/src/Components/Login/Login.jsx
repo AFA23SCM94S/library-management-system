@@ -298,7 +298,7 @@ debugger;
                             src=''
                             alt='Library Management System'
                             className="logo"
-                            style={{fontFamily:"initial",color:"#6f2750", fontSize:"40px",fontWeight:"bold"
+                            style={{fontFamily:"initial",color:"antiquewhite", fontSize:"40px",fontWeight:"bold"
                             }}
                           />
                         </span>

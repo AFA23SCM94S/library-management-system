@@ -20,6 +20,7 @@ import { Modal, Button, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import Tooltip from '@mui/material/Tooltip';
 
 // const useStyles = makeStyles({
 //     table: {
@@ -498,6 +499,9 @@ if (res.status ==  200){
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.b_title;
               temp.author = t.b_author;
             }
@@ -515,6 +519,9 @@ if (res.status ==  200){
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.j_name;
               temp.author = t.j_author;
             }
@@ -533,6 +540,9 @@ if (res.status ==  200){
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.m_name;
               temp.author = t.m_contributor;
             }
@@ -550,6 +560,9 @@ if (res.status ==  200){
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.t_name;
               temp.author = t.t_author;
             }
@@ -691,7 +704,7 @@ if (res.status ==  200){
 
 </nav>
 <br></br>
-<Button style={{backgroundColor:"#983132",color:"antiquewhite",float:"right",marginRight:"15%",height:"50px"}} type="submit" onClick={(e) => this.setState({showAddUserPopup: true})}>
+<Button style={{backgroundColor:"#983132",color:"antiquewhite",float:"right",marginRight:"6%",height:"50px"}} type="submit" onClick={(e) => this.setState({showAddUserPopup: true})}>
                 <span className="button_icon">
                   <i className="fa fa-plus">&nbsp;</i>Add Document{" "}
                 </span>
@@ -715,15 +728,15 @@ if (res.status ==  200){
               <TableRow>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}}>ID</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}}>Title</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"10%"}}>Author</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}}>Author</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Category</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Room Number</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Room Level</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Rack Number</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Total Copies</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Available Copies</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Room Number</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Room Level</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Rack Number</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Total Copies</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Available Copies</TableCell>
 
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Digital Version</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Digital Version</TableCell>
 
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">User Actions</TableCell>
 
@@ -781,6 +794,7 @@ if (res.status ==  200){
                   |  &nbsp; &nbsp; */}
 
 {/* <Button size="sm" color="primary" tag={Link} to={"/documents/" + item.docid}>Edit</Button> */}
+<Tooltip title="Update Document/Copy Details">
 
 <Link
               style={{ border: "none", color: "#007ebd" }}
@@ -793,12 +807,15 @@ if (res.status ==  200){
               <span className="ml-1">
               <i class="fa fa-pencil-square" aria-hidden="true" style={{ color: "orange" ,fontSize:"25px"}}></i>      </span>
               </Link>
+              </Tooltip>
 
 {/* {                  <i class="fa fa-pencil-square" aria-hidden="true" style={{ color: "orange" ,fontSize:"25px"}}></i>
 }           */}
   &nbsp; &nbsp;
   |
    &nbsp; &nbsp;
+   <Tooltip title="Remove Document">
+
 <Link
               style={{ border: "none", color: "#007ebd" }}
               to="#"
@@ -809,6 +826,8 @@ if (res.status ==  200){
               <span className="ml-1">
               <i class="fa fa-trash" aria-hidden="true" style={{ color: "red" ,fontSize:"25px"}}></i>        </span>
               </Link>
+              </Tooltip>
+
                   </TableCell>
 
                 </TableRow>
@@ -880,7 +899,51 @@ if (res.status ==  200){
                             required
                           />
                         </div>
+                        <div className="form-group col-md-6" style={{display:"flex",paddingBottom:"15px"}}>
+                          <label
+                            className="required"
+                            htmlFor="doc_id"
+                            style={{
+                              float: "left",
+                              color: "dark-black",
+                              paddingRight: "10px", width: "50%",fontFamily:"initial",fontSize:"18px"
+                            }}
+                          >
+                          Title {" "}
+                          </label>
+                          <input
+                            className="form-control"
+                            id="doc_id"
+                            type="text"
+                            name="doc_id"
 
+                            maxLength="15"
+                            required
+                          />
+                        </div>
+
+                        <div className="form-group col-md-6" style={{display:"flex",paddingBottom:"15px"}}>
+                          <label
+                            className="required"
+                            htmlFor="doc_id"
+                            style={{
+                              float: "left",
+                              color: "dark-black",
+                              paddingRight: "10px", width: "50%",fontFamily:"initial",fontSize:"18px"
+                            }}
+                          >
+                           Author {" "}
+                          </label>
+                          <input
+                            className="form-control"
+                            id="doc_id"
+                            type="text"
+                            name="doc_id"
+
+                            maxLength="15"
+                            required
+                          />
+                        </div>
                         <div className="form-group col-md-6"style={{display:"flex",paddingBottom:"15px"}}>
                           <label
                             className="required"

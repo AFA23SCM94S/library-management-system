@@ -19,7 +19,7 @@ import { Modal, Button, Dropdown } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
-
+import Tooltip from '@mui/material/Tooltip';
 // const useStyles = makeStyles({
 //     table: {
 //       minWidth: 650
@@ -295,6 +295,9 @@ class MemberDocuments extends React.Component {
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.b_title;
               temp.author = t.b_author;
             }
@@ -312,6 +315,9 @@ class MemberDocuments extends React.Component {
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.j_name;
               temp.author = t.j_author;
             }
@@ -330,6 +336,9 @@ class MemberDocuments extends React.Component {
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.m_name;
               temp.author = t.m_contributor;
             }
@@ -347,6 +356,9 @@ class MemberDocuments extends React.Component {
             for(let i=0;i<json.length;i++){
               let t = json[i];
               var temp = this.state.docInfo.get(t.docid);
+              if (temp === undefined){
+                continue;
+              }
               temp.title = t.t_name;
               temp.author = t.t_author;
             }
@@ -530,26 +542,27 @@ class MemberDocuments extends React.Component {
           onChange={(searchVal) => this.requestSearch(searchVal)}
           onCancelSearch={() => this.cancelSearch()}
           style={{backgroundColor:"antiquewhite"}}
+          placeholder="Search for documents and more"
         />
 
         <TableContainer style={{backgroundColor:"antiquewhite"}}>
           <Table  aria-label="simple table">
             <TableHead style={{backgroundColor:"#983132"}}>
               <TableRow>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}}>ID</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"15%"}}>Title</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}}>ID</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"13%"}}>Title</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"10%"}}>Author</TableCell>
 
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Category</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Room Number</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Room Level</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Rack Number</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Total Copies</TableCell>
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Available Copies</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Room Number</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Room Level</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Rack Number</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Total Copies</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Available Copies</TableCell>
 
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"5%"}} align="center">Digital Version</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"3%"}} align="center">Digital Version</TableCell>
 
-                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">User Actions</TableCell>
+                <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial",width:"10%"}} align="center">Borrow &nbsp;| &nbsp;Return</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Issue Date</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center">Due Date</TableCell>
                 <TableCell style={{color:"antiquewhite",fontSize:"20px",fontFamily:"initial"}} align="center"><i class='fas fa-bell'></i></TableCell>
@@ -609,23 +622,27 @@ class MemberDocuments extends React.Component {
                   |  &nbsp; &nbsp; */}
 
 {/* <Button size="sm" color="primary" tag={Link} to={"/documents/" + item.docid}>Edit</Button> */}
-
+<Tooltip title="Borrow Document">
 <Link
-              style={{ border: "none", color: "#007ebd" }}
+              style={{ border: "none", color: "#983132" }}
               to="#"
               onClick={() =>
                 this.borrowdocument(item.docid)
               }
             >
               <span className="ml-1">
-              <i class="fa fa-book" aria-hidden="true" style={{ color: "#983132" ,fontSize:"25px"}}></i>    </span>
+
+              <i class="fa fa-book" aria-hidden="true" style={{ color: "#983132" ,fontSize:"25px"}}></i>  </span>
               </Link>
+              </Tooltip>
+
 
 {/* {                  <i class="fa fa-pencil-square" aria-hidden="true" style={{ color: "orange" ,fontSize:"25px"}}></i>
 }           */}
   &nbsp; &nbsp;
   |
    &nbsp; &nbsp;
+   <Tooltip title="Return Document">
 
 <Link
               style={{ border: "none", color: "#007ebd" }}
@@ -638,6 +655,9 @@ class MemberDocuments extends React.Component {
               <i class="fa fa-reply" aria-hidden="true" style={{ color: "#983132" ,fontSize:"25px"}}></i>
        </span>
               </Link>
+
+              </Tooltip>
+
 
                   </TableCell>
                   <TableCell style={{fontSize:"18px",fontFamily:"initial"}} align="center">
@@ -656,7 +676,7 @@ class MemberDocuments extends React.Component {
                               <span className="fontSize16 statusMachine">
                              <i class='fas fa-exclamation-triangle' style={{ color: "red" ,fontSize:"25px"}}></i>
                              <br></br>
-                            <small style={{ color: "red" }}> Past due date </small>
+                            <p style={{ color: "red" }}> Past Due Date </p>
                               </span>
                             ) : (
                               <span className="fontSize16 statusMachine">
@@ -669,7 +689,7 @@ class MemberDocuments extends React.Component {
 
 <i class="fa fa-comment" style={{ color: "orange" ,fontSize:"25px"}}></i>
 <br></br>
-<small style={{ color: "orange" }}>Due date is coming</small>
+<p style={{ color: "orange" }}>Due Date Is Coming</p>
 
                               </span>
                             )}
